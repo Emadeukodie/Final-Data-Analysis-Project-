@@ -72,14 +72,11 @@ order by AVGSalaryExpected desc
 --Categorise job titles 
 select Job_Title, Salary_Expected_,
 case 
-when Salary_Expected_ > Avg(Salary_Expected_) then 'AboveAverage'
-when Salary_Expected_ < Avg(Salary_Expected_) then 'BelowAverage'
+when Salary_Expected_ >= Avg(Salary_Expected_) then 'AboveAverage'
+when Salary_Expected_ <= Avg(Salary_Expected_) then 'BelowAverage'
 Else 'Average'
 END AS SalaryRating
 from `datafinalproject.DataJobs.SQL_PROJECT`
 group by Job_Title, Salary_Expected_
 order by 2 desc;
 
---join with job posts from linkedin 
-
-SELECT * FROM  `datafinalproject.DataJobs.SQL_PROJECT`
