@@ -70,13 +70,18 @@ where Salary_Expected_ >= AVGSalaryExpected
 order by AVGSalaryExpected desc
 
 --Categorise job titles 
-select Job_Title, Salary_Expected_,
-case 
-when Salary_Expected_ >= Avg(Salary_Expected_) then 'AboveAverage'
-when Salary_Expected_ <= Avg(Salary_Expected_) then 'BelowAverage'
-Else 'Average'
-END AS SalaryRating
-from `datafinalproject.DataJobs.SQL_PROJECT`
-group by Job_Title, Salary_Expected_
-order by 2 desc;
+SELECT
+  Job_Title,Salary_Expected_,
+  CASE 
+    WHEN Salary_Expected_ > AVG(Salary_Expected_) OVER() THEN 'AboveAverage'
+    WHEN Salary_Expected_ < AVG(Salary_Expected_) OVER() THEN 'BelowAverage'
+    ELSE 'Average'
+  END AS SalaryRating
+FROM
+  `datafinalproject.DataJobs.SQL_PROJECT` 
+GROUP BY
+  Job_Title,
+  Salary_Expected_
+ORDER BY
+  Salary_Expected_ DESC;
 
